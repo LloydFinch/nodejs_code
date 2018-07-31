@@ -1,0 +1,39 @@
+<DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>try a nodejs</title>
+</head>
+<body>
+	<input type="text" name="aaa">
+	<button value="submit" name="submit">submit</button>
+	<p>hello android!</p>
+
+	<script type="text/javascript">
+		var btn = document.querySelector('button');
+		btn.addEventListener('click',function(){
+			var value = document.querySelector('input').value;
+			ajax(value);
+			console.log(value);
+		},true)
+
+		function ajax(value){
+			var xmlhttp;
+			if(window.XMLHttpRequest){
+				xmlhttp = new XMLHttpRequest();
+			}else{
+				xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+			}
+
+			xmlhttp.onreadystatechange = function()}{
+				if(xmlhttp.readyState==4&&xmlhttp.status==200){
+					document.querySelector("p").innerHTML = xmlhttp.responseText;
+				}
+			}
+			xmlhttp.open('GET','/upload?value='+value,true);
+			xmlhttp.send();
+		}
+
+	</script>
+</body>
+</html>

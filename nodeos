@@ -1,0 +1,6 @@
+
+var os = require('os');
+
+var networkInterfaces = os.networkInterfaces();
+var ipAddress = networkInterfaces.en0[1].address;
+console.log(ipAddress);

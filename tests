@@ -1,0 +1,21 @@
+var http  = require('http');
+var url = require('url');
+var fs = require('fs');
+var path = require('path');
+var os = require('os');
+
+//TODO 下载的文件偏小，查找原因
+const PORT = 8082;//端口号
+var ipAddress = os.networkInterfaces().en0[1].address;
+var downloadAddress = 'http://' + ipAddress +':' + PORT +'/index/apks/app-werewolf_sa-release.apk';
+
+var htmlData = '<html><head></head><body><a href='+downloadAddress+' download="app-werewolf_sa-release.apk">click to download</a></body></html>';
+console.log('addrss: ' + downloadAddress);
+var server = http.createServer(function(request,response){
+	response.writeHead(200,{'Content-Type':'text/html;charset="utf-8"'});
+	response.write(htmlData);
+	response.end();
+});
+
+server.listen(PORT);
+console.log('server start in %d',PORT);
