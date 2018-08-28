@@ -1,0 +1,53 @@
+面向对象的六大法则
+
+	面向对象 -> 面向接口
+	衡量：做改变看影响，看需要修改的规模大小，越小越好
+1 单一职责原则(SRP)  Single Responsibility Principle
+	:有且只有一个原因引起类的变更
+	 单一职责不仅使用在类中，而且也要实现在方法中:更新属性的不传对象而是定义一系列	
+	changeXXX(xxx)做到单一职责，便于维护
+
+	接口单一职责，类只有一个原因引起变化	
+	
+	属性和行为分开，一个实体三个接口，A借口提供属性，B接口提供行为，C接口extends这两个接口，
+	实体implements C接口，面向C接口编程;
+eg: public interface A{
+		void setName(String name);
+		String getName();
+	 }
+	public interface B{
+		void changePsw (String psw);
+		void addRole(Role role);
+	}
+	public interface IUser extends A,B{}
+	public class User implements IUser{}
+	
+	IUser iUser = new User();
+	//操作属性
+	A a = iUser;
+	a.setName("tom");
+	a.getName();
+	//操作行为
+	B b = iUser;
+	b.changePsw("123");
+	b.addRole(role);
+
+2 里氏置换原则(LSP) Liskov Substitution Principle 
+	:所有使用基类的地方必须能透明的使用子类
+		1 子类必须完全实现父类的方法
+		2 子类可以有自己的行为或个性但尽量避免
+		3 覆盖或实现父类方法时输入参数可大不可小(按小范围优先匹配)
+		4 覆盖或实现父类方法时输出结果可小不可大(否则编译出错)
+	使用类时尽量使用父类或接口
+	如果子类不能完成的实现父类的方法或者父类的方法在子类中已经发生畸变，就不采用继承，而是用
+  依赖，聚集，组合等关系	
+	继承的缺点：侵入性，降低灵活性，增加耦合性
+	
+	
+
+
+
+
+
+
+

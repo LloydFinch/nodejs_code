@@ -1,0 +1,35 @@
+
+现在的js代码不需要设置type="text/javascript"属性了
+如果引用外部的js代码,需要设置src="xxx.js"属性
+
+js显示数据:使用window.alert()弹出警告框
+		   使用document.write()将内容写入到HTML文档中
+		   使用innerHTML写入到HTML元素
+		   使用console.log()写入到浏览器的控制台
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

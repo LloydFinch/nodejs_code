@@ -1,0 +1,19 @@
+RxJava笔记 http://gank.io/post/560e15be2dca930e00da1083
+
+1 用于实现异步操作，将复杂的逻辑简单化
+3 Observable里面进行事件订阅，处理耗时操作，Observer里面对耗时操作的结果进行处理；
+4 subscribeOn(Thread)指定事件订阅的线程，即耗时操作所在的线程; 
+  默认和observeOn(Thread)指定事件发生的线程，
+  即耗时操作结果处理的线程;默认和observeOn(Thread)subscribeOn(Thread)在同一个线程，所以如果指定了
+  observeOn(Thread)所在线程，要注意subscribeOn(Thread)是否需要指定另外的线程;
+5 使用 
+	
+	订阅：
+	Subscription sub = 
+	Observable.subscribeOn(Thread1).observeOn(Thread2).subscribe(Observer);
+	
+	取消：
+	if(!sub.isUnSubscribed()){
+
+		sub.unSubscribe();
+	}

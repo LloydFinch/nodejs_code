@@ -1,0 +1,36 @@
+python tuple数组(),list集合[]
+python的list的内容类型可以不一样，因为是解释性语言
+python的list可以倒序输出，负数表示倒序输出，从-1开始
+python的list添加元素，append()添加到末尾，insert(index,element)插入到指定位置
+python的list删除元素，pop()删除最后一个元素，pop(index)删除指定位置的元素, 注意删除后下表会刷新
+python的list替换元素，直接根据下表赋值即可
+python的tuple，可以视为list的常量类型，一旦创建，不能修改，创建:t = ('a','b')，使用圆括号
+python创建单元素的tuple，需要添加一个逗号避免歧义
+python创建可变的tuple，只需要包含一个再引用的元素即可 t = ('a','b',['A','B'])，改变list的元素即可
+python的if else中if和else后面带有冒号，else if 为elif
+python的循环语句和条件语句后面都有冒号
+python的dict等价于java中的map,用花括号括起来
+len函数可以计算任意集合的大小
+python访问dict类似于kotlin，可以通过[key]个het(key)两种方式,遍历: for 'key' in dict
+dict特点:查找速度快，无序性，key不可变性
+dict添加和更新都是用赋值语句d[key] = value，如果key不存在就会报错，
+访问之前可以先用in判断key是否存在,使用get(key)可以避免key不存在报错的问题,key不存在返回None
+python的set构造set([])，参数为list，无序性，不重复性，会自动删除重复的元素
+set的操作add(e),remove(e),add时如果元素已存在就不会添加,remvoe时如果元素不存在就会报错
+python默认编码为ASCII，无法打印汉字，添加#coding=utf-8即可，=两边不加空格
+python不实用{}包括代码块，但是使用缩进来格式化代码，缩进的数量可以任意改变，但是同一个逻辑缩进的数量必须相同
+python以新行作为语句结束符，但是可以使用\将一行语句分为多行
+raw_input('press enter to input,other key to show input\n')//输入流
+同一行显示多条语句，使用分号隔开
+print默认是换行的，如果不想换行，在末尾加上逗号
+复合语句以:结束
+python定义变量，直接 变量名:变量值
+del删除变量的引用
+python格式化打印同java
+同一行显示多条语句，使用;分隔
+
+
+
+
+
+

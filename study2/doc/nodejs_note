@@ -1,0 +1,36 @@
+
+在node应用中，异步操作将回调作为最后一个参数，将回调函数接收的错误对象作为第一个参数
+var json = JSON.stringify(object); //对象转json字符串
+var object = JSON.parse(json);//json字符串转对象
+
+
+
+api:
+events.EventEmitter().on('event',fcuntion(arg1,arg2...));//接收事件
+events.EventEmitter().emit('event',arg1,arg2...);//发射事件
+事件参数作为回调函数的参数传递
+
+events.EventEmitter:
+
+addListener(event,listener);
+on(event,listener);
+once(event,listener);//单次监听器，监听器最触发一次，触发后接接触
+removeListener(event,listener);
+removeAllListener();
+setMaxListener();
+listeners(event);//返回监听器数组
+emit(event,arg1,arg2);//按照参数顺序执行每个监听器
+
+//类方法
+listenerCount(emitter,event); //返回指定事件的监听起数量
+
+error事件:
+emitter.emit('error');//如果没有error事件的监，则会抛出异常
+
+
+
+setTimeout(function,delay) // delay 时间后触发function
+
+
+
+

@@ -1,0 +1,51 @@
+			kotlin 笔记
+
+
+
+1 kotlin文件以kt为扩展名
+2 编译指令 kotlinc hello.kt -include-runtime -d hello.jar
+	-d:设置编译输出的名称，可以是class或.jar文件
+	-include-runtime:让.jar文件好汉kotlin运行库,从而可以直接运行
+3 运行指令:java -jar hello.jar
+4 编译成库:kotlinc hello.kt -d hello.jar
+		   kotlin -classpath hello.jar HelloKt
+5 运行REPL kotlinc-jvm打开一个shell,可直接输入kotlin代码得到运行结果
+6 kotlin可以作为脚本语言使用,后缀名为.kts
+
+函数定义:使用关键字fun，参数格式 参数:类型(多个参数用","隔开):返回类型{方法体}
+表达式作为函数体,返回类型自动推断
+
+public类型的函数，必须指明返回值(目前测试不加返回类型也没问题)
+无返回值的函数(Unit,等价于java中的void)可以省略返回类型,即使是public类型的
+可变长参数函数:使用vararg修饰,eg: vararg v:Int;
+
+lambda函数 val function: (Int,Int) -> Int = {x,y -> x+y}
+
+kotlin接口可以有函数的默认实现
+继承等价于调用了父类的构造方法
+kotlin接口多继承，接口的方法签名需要相同
+object单例等价于Java饿汉式单例
+
+
+
+
+
+
+
+
+
+
+
+
+
+kotlin使用:对泛型进行上限约束
+kotlin函数的最后一个参数是一个函数的话，可以把实现提到括号外面，如果只有这一个函数参数，可以上略圆括号
+let函数[object?.let{it}]，数一个作用域函数，object.let{it//表示object}, object?.let{}，可用于判空处理
+with函数[with(object){if(item!=null){}}]，可以省略类名使用 with(object){//this(可省略)就代指object}
+run函数[object?.run{}] = let + run，不用it(let)也不用进行判空处理(run)
+apply函数[object?.apply{}]函数，类似于run，apply返回对象本身，run返回最后一行，一般用于对象初始化和多层级判空，链式调用
+also函数[object?.also{}]，和let类似，also返回对象本身，let返回最后一行
+
+
+
+

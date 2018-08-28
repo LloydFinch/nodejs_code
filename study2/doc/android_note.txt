@@ -1,0 +1,53 @@
+Android 工具 http://www.androiddevtools.cn
+
+Android反射获取View的id
+int viewid = R.id.class.getField(id).getInt(null);
+View:INVISIBLE: onDraw()不会调; GONE: onLayout() onDraw()不会调用
+
+getMeasureWidth(),onMeasure()后,getWidth(),onLayout()后,过程:onMeasure()->onLayout()->onDraw()
+在layout时会改变view的宽度,所以把握时机
+
+Android状态栏一体化:内层布局宽高匹配父容器，同时添加cropToPadding = true;然后代码中设置DecorView的属性
+但是屏幕布局会整体下移,造成从屏幕获取坐标有偏差
+
+Intent匹配:action至少匹配一个;category:要么没有要么都匹配;data:.....
+
+AIDL使用自定义对象，自定义对象实现Parcelable接口，2 要有一个同名的AIDL，声明parcelable XXX; 
+同名的AIDL和类不能放在同一个文件夹下;aidl目录不能放实体类
+
+横竖屏切换时候Activity的生命周期。
+1、不设置Activity的android:configChanges时，切屏会重新调用各个生命周期，切横屏时会执行一次，切竖屏时会执行两次
+2、设置Activity的android:configChanges="orientation"时，切屏还是会重新调用各个生命周期，切横、竖屏时只会执行一次
+3、设置Activity的android:configChanges="orientation|keyboardHidden"时，切屏不会重新调用各个生命周期，只会执行onConfigurationChanged方法
+
+
+
+
+//Activity的启动过程==========//
+显式启动：需要知道类名
+隐式启动：需要知道组件名，可以减少组件间的依赖
+activity 启动：ActivityManagerService启动Launcher，Launcher启动app的LauncherActivity，
+它们又分别在三个不同的进程中，这三个进程通过binder进行通信
+
+启动过程:
+1 Launcher -> AMS : start app.LauncherActivity [launcher](START_ACTIVITY_TRANSACTION)
+2 AMS保存保存启动app.LauncherActivity的数据，AMS -> Launcher : pause [AMS](SCHEDULE_PAUSE_ACTIVITY_TRANSACTION)
+3 Launcher中止，Launcher -> AMS : already pause [launcher](ACTIVITY_PAUSED_TRANSACTION)
+4 AMS start app.LauncherActivity，app.LauncherActivty.process存在?启动 : 创建进程app.process 
+	[AMS] Process.start(android.app.ActivityThread) ActivityThread.main() (ATTACH_APPLICATION_TRANSACTION)
+
+5 app.process create finish, app.process -> AMS : create finish
+6 AMS -> app.process : 启动app.LauncherActivity的数据 
+ [AMS](SCHEDULE_LAUNCH_ACTIVITY_TRANSACTION)
+
+7 app.process start app.LaunchertActivity [app,调动自己的onCreate()]
+
+[LAUNCHER] 	  AMP send (START_ACTIVITY_TRANSACTION)
+[AMS]         AMS startActvity, APPTP send (SCHEDULE_PAUSE_ACTIVITY_TRANSACTION)
+[LAUNCHER]    APPT schedulePaseActivity(), AMP send (ACTIVITY_PAUSED_TRANSACTION)
+[AMS]         AMS activityPaused(), create new Process -> APP
+[APP]         AMP send (ATTACH_APPLICATION_TRANSACTION)
+[AMS]         AMS attachApplication(), APPTP send (SCHEDULE_LAUNCH_ACTIVITY_TRANSACTION)
+[APP]         APPT scheduleLaunchActivity()
+
+

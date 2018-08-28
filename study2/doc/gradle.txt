@@ -1,0 +1,82 @@
+一 Groovy基础
+
+1 groovy = java+语法糖
+2 groovy打印 println "hello world!"
+3 定义:def a = 1，方法参数和循环变量的声明不需要def（弱类型语言）
+4 默认修饰符是public，所以可以省略大部分public
+5 不需要语句结束符;,加上也没错
+6 字符串连接符，可以使用“+”，更groovy的方法是使用n个“”包括，其中的特殊字符（换行和tab）都会被保留
+7 一切皆象，可以自动转型
+8 范围 0..5; 0..<5; a..e; a..<e
+9 循环，可以使用范围(m..n)，以及一般的java循环
+10 String 'hello world'和Gstring "${a} ${b}"; def a = 'hello';def b = 'world',表达式必须用花括号包括,单个值可以不用花括号包括
+   	$可引用方法名做动态方法调用 :
+   		def func = "toString"; def dateStr = new Date()."$func"();//等价于 new Date().toString();//func改变,调用的方法也会改变
+11 默认参数值:定义函数时可以设置默认参数值
+12 集合，支持Collection和Map,Collection的定义:def collect = ["a","b","c"];
+	集合的操作是通过下标进行的,支持范围操作,下标支持列举操作;
+	集合添加元素: collect.add(1); collect<<"hello"; collect[collect.size()] = 200;
+	集合可以使用负索引: collect[-1];//倒数第一个元素
+	可以进行集合运算:collect = collect + 5;//在集合中添加元素5
+				  collect[collect.size()] = 10;//在末尾添加一个元素，其值为10
+				  collect = collect - 'a';//在集合中减去元素a
+	在集合中添加或删除集合:添加正常，删除是根据元素值进行的，值相同就会全部删除，无论通过下标还是数值
+				  collect -= collect[0..4];//删除所有跟collect[0]-collect[4]之间元素相同的元素
+				  collect -= collect[0,2];//删除所有跟collect[0]和collect[2]相同的元素
+				  collect += 0..2;//添加[0,2]区间的元素
+				  collect -= 0..2;//删除所有[0,2]区间的元素
+				  if(collect[0]==collect[-1]);//倒数第一个元素和第一个元素相同
+	map(等价于java的LinkedHashMap)的定义:def map = ['name':'finch','age':'25'];
+	map添加元素:map = map + ['weight':'64']; map.put['height':'173']; map.sex = 'man';
+	map的索引:map['name'];//通过key作为下标索引;    map.name;//通过key作为成员名索引
+13 闭包(Closure):用{}括起来的代码块，可以被单独运行或调用，也可以被命名.类似匿名类;多用于集合遍历,要注意闭包定义的位置,当作变量看待(类型是Closure)
+	闭包的定义:def say = {word -> println 'hi, $word!'}//参数后面不能加"{}"
+	闭包的调用:say('hello'); say.call(android & java);
+	闭包可以作为参数传递
+	closure 默认有一个参数it
+14 类
+	类不需要public修饰,默认就是public;,但是类的成员都是私有的,你可以直接访问成员，默认调用的是它的getter方法
+	不需要返回类型和参数类型(因为groovy是弱类型语言);
+	不需要getter/setter方法
+	不需要构造函数
+	不需要return,默认返回最后一行
+	方法调用不需要()号，构造方法除外
+15 ?运算符,a?.next();等价于 if(a!=null){a.next()};
+16 可变参数:int sum(int ...var){}//同java
+17 枚举:同java(成员用","隔开,最后一个后面才加";")，可以在switch-case中使用枚举,集合,范围等
+18 Elvis运算符(三目运算符)"?:" String a = name?:"null"; 等价于: String a = name!=null ? name : "null";
+19 动态性: Groovy的每一个对象都有一个元类metaClass,可以通过它访问该元类，可以为这个对象增加方法:
+	String.metaClass.up = {delegate.toUpperCase()};//添加up方法;
+	String str = "hello"; str.up();//调用添加的up方法;
+	通过metaClass还可以检索对象的方法和属性,类似于java的反射;
+20 Groovy的Swing
+21 单元测试
+22 groovy不支持方法内定义方法
+
+
+Gradle for android (Gradle优点:约定优于配置)
+1 必须的属性有:compileSdkVersion和buildtoolsVersion
+2 需要在project的build.gradle相同的目录下添加local.properties文件,并指定sdk.dir属性，添加sdk路径
+3 至少一个项目，一个项目包括一个或多个任务，每一个build.gradle都代表一个项目,这个文件叫做构建脚本，任务定义在构建脚本里,
+	一个任务对象包含一系列动作对象，这些动作对象像代码块一样按顺序执行
+4 gradle的执行过程是线性的，不会出现循环的情况，没有依赖的任务优先执行; order: 初始化 -> 配置 -> 执行
+5 apply plugin "com.android.application" : 应用模块
+  apply plugin "com.android.library" : 依赖模块
+  一个gradle只能有以上两个中的一个，要么是一个应用模块，要么是一个依赖模块
+6 source set源集:一组源文件，被一起编译和执行; main/androidTest都是源集;
+7 gradle采用可以使用驼峰式简写任务名:首字母骆驼命名,如果缩写后有同名的，同名的都会失效
+8 手动构建gradle:添加3个gradle文件,两个build.gradle,一个顶层构建的gradle和一个模块构建的gradle,
+	一个settings.gradle(单module项目可以没有此文件)
+9 gradle会为settings文件创建一个Settings对象，并调用相关方法
+10 gradle tasks; gradle tasks --all查看所有task，可以使用参数-m试运行
+11 assemble:为每个构建版本创建一个apk
+   check:运行Lint检查，如果发现问题，则停止构建
+   clean:清除所有构建内容，例如APK文件
+   build: = assemble + check
+12 自定义构建,要保持同步项目
+
+
+
+
+
+
