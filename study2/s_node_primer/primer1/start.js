@@ -8,7 +8,7 @@ function start(route,handle){
 	//监听地址，默认为127.0.0.1
 	var address = ''
 	//监听端口
-	var port = 8888;
+	var port = 3389;
 
 	//定义相应的回调
 	function onRequest(request,response){
